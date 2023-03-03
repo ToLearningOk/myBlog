@@ -1,0 +1,48 @@
+#spring:
+#  profiles:
+#    active: '@environment@'
+spring:
+  mail:
+    host: smtp.qq.com
+    username: 568541648@qq.com
+    password: nykrgvozkppmbbfa
+  datasource:
+    url: jdbc:mysql://localhost:3306/sg_blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      username: root
+      password: root
+  redis:
+    host: localhost
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
+  mvc:
+    #    swagger使用
+    pathmatch:
+      matching-strategy: ant_path_matcher
+#      文件上传相关
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 5MB
+
+#      mybatis-plus 配置
+mybatis-plus:
+  configuration:
+    # 日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: auto
+#      mybatis-plus结束
+server:
+  port: 7777
+
+

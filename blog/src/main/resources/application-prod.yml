@@ -1,0 +1,28 @@
+spring:
+  mail:
+    host: smtp.qq.com
+    username: 568541648@qq.com
+    password: nykrgvozkppmbbfa
+  datasource:
+    url: jdbc:mysql://localhost:3306/book_manage
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      username: root
+      password: root
+  redis:
+    host: localhost
+    database: 0
+    port: 6379
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
+springfox:
+  documentation:
+    enabled: false
+
+
+
+
+

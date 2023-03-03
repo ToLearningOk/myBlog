@@ -1,0 +1,12 @@
+package com.djt.service;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.djt.domain.ResponseResult;
+import com.djt.domain.entity.Article;
+
+public interface ArticleService extends IService<Article> {
+    /**
+     * 查询热门文章，封装为ResponseResult返回
+     */
+    ResponseResult getHotArticleList();
+}
