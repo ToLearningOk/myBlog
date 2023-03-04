@@ -2,11 +2,14 @@ package com.djt.domain.entity;
 
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.io.Serializable;
 
 /**
@@ -19,6 +22,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("sg_article")
+@Accessors(chain = true)//使添加的set方法返回当前对象本身
 public class Article {
     @TableId
     private Long id;
@@ -30,6 +34,11 @@ public class Article {
     private String summary;
     //所属分类id
     private Long categoryId;
+
+    //所属分类名 该字段在数据库不存在
+    @TableField(exist = false)
+    private String categoryName;
+
     //缩略图
     private String thumbnail;
     //是否置顶（0否，1是）
@@ -48,7 +57,7 @@ public class Article {
     private Long updateBy;
     
     private Date updateTime;
-    //删除标志（0代表未删除，1代表已删除）
+    //删除标志（0 代表未删除，1 代表已删除）
     private Integer delFlag;
 
 }

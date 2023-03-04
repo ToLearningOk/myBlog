@@ -47,13 +47,17 @@ public class ResponseResult<T> implements Serializable {
         return result;
     }
 
-    //成功无data
+    /**
+     * 成功返回不含data
+     */
     public static ResponseResult okResult(int code, String msg) {
         ResponseResult result = new ResponseResult();
         return result.ok(code, null, msg);
     }
 
-    //成功含data
+    /**
+     * 成功返回含data
+     */
     public static ResponseResult okResult(Object data) {
         ResponseResult result = setAppHttpCodeEnum(AppHttpCodeEnum.SUCCESS, AppHttpCodeEnum.SUCCESS.getMsg());
         if(data!=null) {
