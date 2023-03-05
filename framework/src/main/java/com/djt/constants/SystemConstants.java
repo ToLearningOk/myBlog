@@ -18,5 +18,12 @@ public class SystemConstants
      *  分类是异常封禁状态
      */
     public static final String CATEGORY_STATUS_DRAFT = "1";
+    //审核通过
+    public static final String LINK_STATUS_NORMAL="0";
+    //审核未通过
+    public static final String LINK_STATUS_FAIL="1";
+    //未审核
+    public static final String LINK_STATUS_NOTLOOK="2";
+
 
 }

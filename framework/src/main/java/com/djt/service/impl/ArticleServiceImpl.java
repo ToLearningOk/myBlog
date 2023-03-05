@@ -8,7 +8,7 @@ import com.djt.constants.SystemConstants;
 import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.Article;
 import com.djt.domain.entity.Category;
-import com.djt.domain.vo.ArticleDetailVO;
+import com.djt.domain.vo.ArticleDetailVo;
 import com.djt.domain.vo.ArticleListVo;
 import com.djt.domain.vo.HotArticleVo;
 import com.djt.domain.vo.PageVo;
@@ -96,7 +96,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             //根据id查询相应文章内容
         Article article = getById(id);
             //VO转换
-        ArticleDetailVO detailVO = BeanCopyUtils.copyBean(article, ArticleDetailVO.class);
+        ArticleDetailVo detailVO = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
             //根据 *分类id 查询 *分类名
         Category category = categoryService.getById(detailVO.getCategoryID());
         if(category!=null) detailVO.setCategoryName(category.getName());
