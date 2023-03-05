@@ -33,14 +33,15 @@ spring:
 #      mybatis-plus 配置
 mybatis-plus:
   configuration:
-    # 日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 日志
   global-config:
     db-config:
       logic-delete-field: delFlag
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+#      表可以设置   前缀
 #      mybatis-plus结束
 server:
   port: 7777

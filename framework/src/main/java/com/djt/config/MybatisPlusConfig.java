@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * Mp支持分页配置
  */
 @Configuration
-public class MbatisPlusConfig {
+public class MybatisPlusConfig {
 
     /**
      * 3.4.0之后版本
