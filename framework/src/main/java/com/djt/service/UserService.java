@@ -1,6 +1,7 @@
 package com.djt.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.User;
 
 
@@ -12,4 +13,5 @@ import com.djt.domain.entity.User;
  */
 public interface UserService extends IService<User> {
 
+    ResponseResult getUserInfo();
 }
