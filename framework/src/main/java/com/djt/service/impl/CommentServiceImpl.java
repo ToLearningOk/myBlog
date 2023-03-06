@@ -5,25 +5,21 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.djt.constants.SystemConstants;
 import com.djt.domain.ResponseResult;
-import com.djt.domain.entity.Article;
 import com.djt.domain.entity.Comment;
 import com.djt.domain.vo.CommentVo;
 import com.djt.domain.vo.PageVo;
 import com.djt.enums.AppHttpCodeEnum;
 import com.djt.exception.SystemException;
 import com.djt.mapper.CommentMapper;
-import com.djt.mapper.UserMapper;
 import com.djt.service.CommentService;
 import com.djt.service.UserService;
 import com.djt.utils.BeanCopyUtils;
 import com.djt.utils.SecurityUtils;
-import com.djt.utils.WebUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 评论表(Comment)表服务实现类
@@ -36,12 +32,14 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Resource
     private UserService userService;
     @Override
-    public ResponseResult getLinkCommentList(Long articleId, Integer pageNum, Integer pageSize) {
+    public ResponseResult getCommentList(String commentType, Long articleId, Integer pageNum, Integer pageSize) {
         //1.完成对应文章的根评论的查询
         //对文章ID articleID进行判断
         LambdaQueryWrapper<Comment> QueryWrapper = new LambdaQueryWrapper<>();
-        QueryWrapper.eq(Comment::getArticleId,articleId);
-        QueryWrapper.eq(Comment::getType,"0");
+        //当type类型为文章时添加条件
+        QueryWrapper.eq(SystemConstants.ARTICLE_COMMENT.equals(commentType),Comment::getArticleId, articleId);
+
+        QueryWrapper.eq(Comment::getType,commentType);
         //根评论 rootID为-1
         QueryWrapper.eq(Comment::getRootId , SystemConstants.COMMENT_STATUS_ROOT);
         QueryWrapper.orderByDesc(Comment::getCreateTime);

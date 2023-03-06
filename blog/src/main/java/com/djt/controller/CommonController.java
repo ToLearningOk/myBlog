@@ -1,5 +1,6 @@
 package com.djt.controller;
 
+import com.djt.constants.SystemConstants;
 import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.Comment;
 import com.djt.service.CommentService;
@@ -16,11 +17,14 @@ public class CommonController {
 
     @GetMapping("/commentList")
     public ResponseResult getCommentList(Long articleId,Integer pageNum,Integer pageSize){
-        return commentService.getLinkCommentList(articleId,pageNum,pageSize);
+        return commentService.getCommentList(SystemConstants.ARTICLE_COMMENT,articleId,pageNum,pageSize);
     }
     @PostMapping()
     public ResponseResult addComment(@RequestBody Comment comment){
         return commentService.addComment(comment);
     }
-
+    @GetMapping("/linkCommentList")
+    public ResponseResult getLinkCommentList(Integer pageNum,Integer pageSize){
+        return commentService.getCommentList(SystemConstants.LINK_COMMENT,null,pageNum,pageSize);
+    }
 }

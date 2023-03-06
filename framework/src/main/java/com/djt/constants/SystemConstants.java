@@ -30,4 +30,6 @@ public class SystemConstants
     public static final String LINK_STATUS_CHILDREN="2";
 
 
+    public static final String ARTICLE_COMMENT = "0";
+    public static final String LINK_COMMENT = "1";
 }
