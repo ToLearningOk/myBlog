@@ -50,6 +50,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(fastJsonHttpMessageConverters());//添加其他的MessageConverter即可
+        converters.add(fastJsonHttpMessageConverters());//转换器，添加其他的MessageConverter即可
     }
 }

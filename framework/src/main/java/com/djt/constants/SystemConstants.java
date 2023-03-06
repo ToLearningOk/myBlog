@@ -24,6 +24,10 @@ public class SystemConstants
     public static final String LINK_STATUS_FAIL="1";
     //未审核
     public static final String LINK_STATUS_NOTLOOK="2";
+    //根评论
+    public static final String COMMENT_STATUS_ROOT="-1";
+    //
+    public static final String LINK_STATUS_CHILDREN="2";
 
 
 }
