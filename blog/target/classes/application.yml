@@ -38,8 +38,8 @@ spring:
 
 #      mybatis-plus 配置
 mybatis-plus:
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   # 日志
   global-config:
     db-config:
