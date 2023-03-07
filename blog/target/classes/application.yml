@@ -1,6 +1,12 @@
 #spring:
 #  profiles:
 #    active: '@environment@'
+
+#   自定义配置
+oss:
+  accessKey: -rDi3tqnE04RhMHY0SwLUJytMmK3pytx4iWD4DEL
+  secretKey: _lnRIOR-YPkVioXEBIFebWJGrt-gMflEPzNMPEDZ
+  bucket: djt-blog
 spring:
   mail:
     host: smtp.qq.com
