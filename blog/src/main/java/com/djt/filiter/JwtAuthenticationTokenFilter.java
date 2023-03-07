@@ -24,6 +24,9 @@ import java.util.Objects;
 
 @Component
 @Logger
+/**
+ * 过滤器
+ */
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Resource
     private RedisCache redisCache;

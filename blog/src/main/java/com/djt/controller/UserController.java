@@ -1,10 +1,9 @@
 package com.djt.controller;
 
 import com.djt.domain.ResponseResult;
+import com.djt.domain.entity.User;
 import com.djt.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -18,6 +17,10 @@ public class UserController {
     @GetMapping("/userInfo")
     public ResponseResult getUserInfo(){
         return service.getUserInfo();
+    }
+    @PostMapping("/userInfo")
+    public ResponseResult updateUserInfo(@RequestBody User user){//参数在请求体中，用RequestBody标识，用实体类来接受参数
+        return service.updateUserInfo();
     }
 
 }

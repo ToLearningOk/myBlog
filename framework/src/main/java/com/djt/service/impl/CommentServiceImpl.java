@@ -36,7 +36,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         //1.完成对应文章的根评论的查询
         //对文章ID articleID进行判断
         LambdaQueryWrapper<Comment> QueryWrapper = new LambdaQueryWrapper<>();
-        //当type类型为文章时添加条件
+        //当type是文章时 添加文章评论的对比
         QueryWrapper.eq(SystemConstants.ARTICLE_COMMENT.equals(commentType),Comment::getArticleId, articleId);
 
         QueryWrapper.eq(Comment::getType,commentType);

@@ -91,6 +91,12 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
+<!--    配置SpringBoot配置注解处理器  使用 @ConfigurationProperties注解 需要  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
 <!--    发生改变    -->
         <dependency>
             <groupId>io.springfox</groupId>
