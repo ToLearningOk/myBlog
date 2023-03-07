@@ -1,5 +1,6 @@
 package com.djt.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.User;
@@ -27,7 +28,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public ResponseResult updateUserInfo() {
-        return null;
+//    用户信息更新
+    public ResponseResult updateUserInfo(User user) {
+        LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(User::getId,user.getId());
+        updateWrapper.set(User::getAvatar,user.getAvatar());
+        updateWrapper.set(User::getEmail,user.getEmail());
+        updateWrapper.set(User::getId,user.getId());
+        updateWrapper.set(User::getNickName, user.getNickName());
+        updateWrapper.set(User::getSex, user.getSex());
+        updateById(user);
+        return ResponseResult.okResult();
     }
 }

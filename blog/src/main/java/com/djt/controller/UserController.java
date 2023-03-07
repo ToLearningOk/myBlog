@@ -18,9 +18,9 @@ public class UserController {
     public ResponseResult getUserInfo(){
         return service.getUserInfo();
     }
-    @PostMapping("/userInfo")
+    @PutMapping("/userInfo")
     public ResponseResult updateUserInfo(@RequestBody User user){//参数在请求体中，用RequestBody标识，用实体类来接受参数
-        return service.updateUserInfo();
+        return service.updateUserInfo(user);
     }
 
 }
