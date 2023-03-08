@@ -28,8 +28,8 @@ public class SystemConstants
     public static final String COMMENT_STATUS_ROOT="-1";
     //
     public static final String LINK_STATUS_CHILDREN="2";
-
-
+    //存入redis中浏览量ViewCount的键
+    public static final String REDIS_VIEW_KEY="viewCount";
     public static final String ARTICLE_COMMENT = "0";
     public static final String LINK_COMMENT = "1";
 }

@@ -35,7 +35,7 @@ public class LogAspect {
         try {
             handleBefore(joinPoint);
             proceed = joinPoint.proceed();//proceed() 方法的调用相当于目标方法的调用，peoceed相当于目标方法执行后的返回值
-            handleAfter();
+            handleAfter(proceed);
         }finally {
             // 结束后换行
             log.info("=======End=======" + System.lineSeparator()/**拼接的系统换行符*/);
@@ -67,10 +67,11 @@ public class LogAspect {
         // 打印请求入参
         log.info("Request Args   : {}", JSON.toJSON( joinPoint.getArgs()) );
     }
-    private void handleAfter() {
+    private void handleAfter(Object proceed) {
         // 打印出参
-        log.info("Response       : {}", "");
+        log.info("Response       : {}", JSON.toJSON(proceed));
     }
+    //获取接口对象
     private SystemLog getSystemLog(ProceedingJoinPoint joinPoint) {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         SystemLog systemLog = methodSignature.getMethod().getAnnotation(SystemLog.class);

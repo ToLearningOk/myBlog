@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "oss",
+      "type": "com.djt.service.impl.OssUploadServiceImpl",
+      "sourceType": "com.djt.service.impl.OssUploadServiceImpl"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

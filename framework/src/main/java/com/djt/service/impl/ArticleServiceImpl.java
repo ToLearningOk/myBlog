@@ -15,11 +15,14 @@ import com.djt.domain.vo.PageVo;
 import com.djt.mapper.ArticleMapper;
 import com.djt.service.ArticleService;
 import com.djt.utils.BeanCopyUtils;
+import com.djt.utils.RedisCache;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.RunnableFuture;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -28,10 +31,13 @@ import java.util.stream.Collectors;
  * */
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
-
+    @Resource
+    RedisCache redisCache;
     @Resource
     private CategoryServiceImpl categoryService;
-    /**获取热门文章列表，响应体内含热门文章列表*/
+    /**
+     * 获取热门文章列表，响应体内含热门文章列表
+     * */
     @Override
     public ResponseResult getHotArticleList() {
         //查询热门文章，封装为ResponseResult返回
@@ -42,9 +48,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         queryWrapper.orderByDesc(Article::getViewCount);
 //        最多查询十条
         Page<Article> page = new Page<>(1,10);
-        page(page,queryWrapper);//将分页和Wrapper 封装
-
-        List<Article> articles = page.getRecords();//获得当前页数据
+        //将分页和Wrapper 封装
+        page(page,queryWrapper);
+        //获得当前页数据
+        List<Article> articles = page.getRecords();
+        //将viewCount更换成redis中的值
+        articles.forEach(article ->
+                article.setViewCount(Long.valueOf(
+                        redisCache.getCacheMapValue(SystemConstants.REDIS_VIEW_KEY,
+                                article.getId().toString()).toString()
+                )));
 
         List<HotArticleVo> vs = BeanCopyUtils.copyBeanList(articles, HotArticleVo.class);
 
@@ -54,7 +67,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     /** 首页和分类页面需要查询的文章列表
      * 首页：查询所有文章，分类页面：查询对应分类下的文章
-     * 需求：1.只能查询发布的文章 2.置顶文章显示最前*/
+     * 需求：1.只能查询发布的文章 2.置顶文章显示最前
+     * */
     @Override
     public ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId){
         QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
@@ -72,19 +86,17 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         List<Article> articles = page.getRecords();
 
         //        查询categoryName
-
         //articlesId 去查询ArticleName并设置
-        //        方法1：for循环
-//        for (Article article : articles) {
-//            Category category = categoryService.getById(article.getCategoryId());
-//            article.setCategoryName(category.getName());
-//        }
-        //      方法2：流，给article中空的 categoryName 赋值
+        //      方法1：for循环   方法2：流，给article中空的 categoryName 赋值
         articles.stream()
                 .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))
+                .map(article -> article.setViewCount(Long.valueOf(
+                        redisCache.getCacheMapValue(SystemConstants.REDIS_VIEW_KEY,
+                                article.getId().toString()).toString()
+                )))
                 .collect(Collectors.toList());
 
-//        封装查询结果  注意，此时字段categoryName 尚未映射，值为空
+//        封装查询结果
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(page.getRecords(), ArticleListVo.class);
 
         PageVo pageVo=new PageVo(articleListVos,page.getTotal());
@@ -95,12 +107,32 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult getArticleDetail(Long id) {
             //根据id查询相应文章内容
         Article article = getById(id);
+
+        //从redis中获取viewCount
+        Integer viewCount = redisCache.getCacheMapValue(SystemConstants.REDIS_VIEW_KEY, id.toString());
+        article.setViewCount(Long.valueOf(viewCount));
+
             //VO转换
         ArticleDetailVo detailVO = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
             //根据 *分类id 查询 *分类名
         Category category = categoryService.getById(detailVO.getCategoryID());
+
         if(category!=null) detailVO.setCategoryName(category.getName());
             //封装响应
         return ResponseResult.okResult(detailVO);
     }
+
+    /***
+     * 根据文章id增加文章的访问量，注意这里更新的数据存入redis中
+     * @param id
+     * @return 成功信息
+     */
+    @Override
+    public ResponseResult updateViewCount(Long id) {
+        //更新redis中，对应iD的浏览量ViewCount
+        redisCache.IncrementCacheMapValue(SystemConstants.REDIS_VIEW_KEY,id.toString(),1);
+        return ResponseResult.okResult();
+
+    }
+
 }
