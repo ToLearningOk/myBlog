@@ -32,4 +32,10 @@ public class SystemConstants
     public static final String REDIS_VIEW_KEY="viewCount";
     public static final String ARTICLE_COMMENT = "0";
     public static final String LINK_COMMENT = "1";
+    public static final String MENU_TYPE_MENU = "C";
+    public static final String MENU_TYPE_BUTTON = "F";
+    public static final String MENU_TYPE_CATALOG = "M";
+    public static final String MENU_STATUS_NORMAL = "0";
+    public static final String MENU_STATUS_DISABLE = "1";
+
 }

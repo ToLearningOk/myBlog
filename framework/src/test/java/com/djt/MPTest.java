@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.function.Predicate;
 
-@SpringBootTest
+@SpringBootTest()
 public class MPTest {
     @Resource
     ArticleMapper mapper;
@@ -24,8 +24,6 @@ public class MPTest {
 //        queryWrapper.select(Article::getStatus);
 //        queryWrapper.select("id","title",)x
 //        mapper.selectList(queryWrapper);
-        Article article = new Article();
-        article.getId();
     }
 
 

@@ -1,5 +1,8 @@
 package com.djt;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.djt.domain.entity.Article;
+import com.djt.mapper.ArticleMapper;
 import com.google.gson.Gson;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
@@ -15,6 +18,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
@@ -74,6 +78,18 @@ public class OSSTest {
         }
 
     }
+    @Resource
+    ArticleMapper mapper;
+    @Test
+    public void testLambdaWrapper(){
+        LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+//        queryWrapper.select(Article::getStatus);
+        queryWrapper.select(Article::getId,Article::getTitle);
+        mapper.selectList(queryWrapper);
+    }
+
+
+
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
     }

@@ -2,6 +2,7 @@ com\djt\handler\security\AuthenticationEntryPointImpl.class
 com\djt\service\impl\OssUploadServiceImpl.class
 com\djt\domain\vo\CategoryVo.class
 com\djt\service\BlogLoginService.class
+com\djt\domain\entity\Menu.class
 com\djt\domain\ResponseResult.class
 com\djt\domain\entity\Link.class
 com\djt\mapper\TagMapper.class
@@ -42,7 +43,9 @@ com\djt\config\RedisConfig.class
 com\djt\domain\vo\PageVo.class
 com\djt\service\impl\LinkServiceImpl.class
 com\djt\handler\mybatisplus\MyMetaObjectHandler.class
+com\djt\service\impl\MenuServiceImpl.class
 com\djt\domain\vo\ArticleListVo.class
+com\djt\service\MenuService.class
 com\djt\service\UploadService.class
 com\djt\domain\vo\LinkVo.class
 com\djt\service\TagService.class
@@ -56,5 +59,6 @@ com\djt\domain\entity\Category.class
 com\djt\aspect\LogAspect.class
 com\djt\exception\SystemException.class
 com\djt\mapper\ArticleMapper.class
+com\djt\mapper\MenuMapper.class
 com\djt\mapper\CategoryMapper.class
 com\djt\domain\entity\Tag.class

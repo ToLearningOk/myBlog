@@ -38,8 +38,8 @@ spring:
 
 #      mybatis-plus 配置
 mybatis-plus:
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   # 日志
   global-config:
     db-config:
@@ -47,6 +47,7 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
+      table-prefix: com.djt.mapper
 #      表可以设置   前缀
 #      mybatis-plus结束
 server:
