@@ -1,6 +1,7 @@
 package com.djt.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.Tag;
 
 
@@ -11,5 +12,7 @@ import com.djt.domain.entity.Tag;
  * @since 2023-03-08 19:21:59
  */
 public interface TagService extends IService<Tag> {
+
+
 
 }

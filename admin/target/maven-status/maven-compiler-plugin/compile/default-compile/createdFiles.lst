@@ -1,0 +1,4 @@
+com\djt\BlogAdminApplication.class
+com\djt\controller\TagController.class
+com\djt\config\SecurityConfiguration.class
+com\djt\filiter\JwtAuthenticationTokenFilter.class

@@ -14,7 +14,6 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.annotation.Resource;
-
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Resource
@@ -47,12 +46,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 UsernamePasswordAuthenticationFilter.class);
         //允许跨域
         http.cors();
+
         //配置异常处理器
         http.exceptionHandling()
                 //认证失败
                 .authenticationEntryPoint(authenticationEntryPoint)
                 //授权失败
                 .accessDeniedHandler(accessDeniedHandler);
+
         //关闭默认的登出接口
         http.logout().disable();
     }

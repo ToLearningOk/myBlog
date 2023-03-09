@@ -1,2 +1,13 @@
 com\djt\controller\ArticleController.class
+com\djt\controller\CommonController.class
+com\djt\config\SecurityConfiguration.class
+com\djt\controller\UserController.class
+com\djt\filiter\JwtAuthenticationTokenFilter.class
+com\djt\runner\ViewCountRunner.class
+com\djt\controller\LinkController.class
+com\djt\job\TestJob.class
 com\djt\MyBlogApplication.class
+com\djt\controller\CategoryController.class
+com\djt\controller\BlogLoginController.class
+com\djt\controller\UploadController.class
+com\djt\job\UpDateViewCount.class

@@ -41,7 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-//    用户信息更新
+    //    用户信息更新
     public ResponseResult updateUserInfo(User user) {
         LambdaUpdateWrapper<User> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.eq(User::getId,user.getId());
@@ -56,7 +56,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResponseResult register(User user) {
-//对数据进行非空判断
+        //对数据进行非空判断
         if(!StringUtils.hasText(user.getUserName()) ){
             throw new SystemException(AppHttpCodeEnum.USERNAME_NOT_NULL);}
         if(!StringUtils.hasText(user.getPassword()) ){

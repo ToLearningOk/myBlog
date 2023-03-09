@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * MP字段自动填充
+ */
 @Component
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override

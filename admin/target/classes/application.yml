@@ -1,32 +1,23 @@
+server:
+  port: 8989
 spring:
-
   datasource:
-    url: jdbc:mysql://localhost:3306/sg_blog?characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/sg_blog?characterEncoding=utf-8&serverTimezone=UTC
+    username: root
+    password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    hikari:
-      username: root
-      password: root
-
-#      文件上传相关
   servlet:
     multipart:
       max-file-size: 2MB
       max-request-size: 5MB
 
-#      mybatis-plus 配置
 mybatis-plus:
   configuration:
+    # 日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  # 日志
   global-config:
-    #逻辑删除字段配置 删除是1，未删除是0
     db-config:
       logic-delete-field: delFlag
       logic-delete-value: 1
       logic-not-delete-value: 0
       id-type: auto
-#      表可以设置   前缀
-server:
-  port: 8989
-
-

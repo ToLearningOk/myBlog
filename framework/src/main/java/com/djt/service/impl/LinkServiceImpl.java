@@ -19,7 +19,7 @@ import java.util.List;
  * @author makejava
  * @since 2023-03-05 15:27:13
  */
-@Service("sgLinkService")
+@Service("LinkService")
 public class LinkServiceImpl extends ServiceImpl<LinkMapper, Link> implements LinkService {
 
     @Override
