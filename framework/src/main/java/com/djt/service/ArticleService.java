@@ -2,6 +2,7 @@ package com.djt.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.djt.domain.ResponseResult;
+import com.djt.domain.dto.ArticleDto;
 import com.djt.domain.entity.Article;
 
 public interface ArticleService extends IService<Article> {
@@ -17,4 +18,6 @@ public interface ArticleService extends IService<Article> {
     ResponseResult getArticleDetail(Long id);
 
     ResponseResult updateViewCount(Long id);
+
+    ResponseResult addArticle(ArticleDto article);
 }

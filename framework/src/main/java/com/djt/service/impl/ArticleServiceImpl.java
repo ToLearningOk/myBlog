@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.djt.constants.SystemConstants;
 import com.djt.domain.ResponseResult;
+import com.djt.domain.dto.ArticleDto;
 import com.djt.domain.entity.Article;
+import com.djt.domain.entity.ArticleTag;
 import com.djt.domain.entity.Category;
 import com.djt.domain.vo.ArticleDetailVo;
 import com.djt.domain.vo.ArticleListVo;
@@ -14,15 +16,15 @@ import com.djt.domain.vo.HotArticleVo;
 import com.djt.domain.vo.PageVo;
 import com.djt.mapper.ArticleMapper;
 import com.djt.service.ArticleService;
+import com.djt.service.ArticleTagService;
 import com.djt.utils.BeanCopyUtils;
 import com.djt.utils.RedisCache;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.RunnableFuture;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -35,6 +37,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     RedisCache redisCache;
     @Resource
     private CategoryServiceImpl categoryService;
+    @Resource
+    private ArticleTagService articleTagService;
     /**
      * 获取热门文章列表，响应体内含热门文章列表
      * */
@@ -42,11 +46,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult getHotArticleList() {
         //查询热门文章，封装为ResponseResult返回
         LambdaQueryWrapper<Article> queryWrapper=new LambdaQueryWrapper<>();
-//        必须是正式文章不是草稿
+        //必须是正式文章不是草稿
         queryWrapper.eq(Article::getStatus, SystemConstants.ARTICLE_STATUS_NORMAL);//将表中的status值和0匹配
-//        按照浏览量排序
+        //按照浏览量排序
         queryWrapper.orderByDesc(Article::getViewCount);
-//        最多查询十条
+        //最多查询十条
         Page<Article> page = new Page<>(1,10);
         //将分页和Wrapper 封装
         page(page,queryWrapper);
@@ -65,10 +69,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     }
 
 
-    /** 首页和分类页面需要查询的文章列表
-     * 首页：查询所有文章，分类页面：查询对应分类下的文章
-     * 需求：1.只能查询发布的文章 2.置顶文章显示最前
-     * */
+    /**
+     * 查询所有文字，首页和分类页面需要查询的
+     * @param pageNum
+     * @param pageSize
+     * @param categoryId
+     * @return
+     */
     @Override
     public ResponseResult articleList(Integer pageNum, Integer pageSize, Long categoryId){
         QueryWrapper<Object> queryWrapper = new QueryWrapper<>();
@@ -86,8 +93,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         List<Article> articles = page.getRecords();
 
         //        查询categoryName
-        //articlesId 去查询ArticleName并设置
-        //      方法1：for循环   方法2：流，给article中空的 categoryName 赋值
+        // 给article中空的 categoryName 赋值
         articles.stream()
                 .map(article -> article.setCategoryName(categoryService.getById(article.getCategoryId()).getName()))
                 .map(article -> article.setViewCount(Long.valueOf(
@@ -98,27 +104,28 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
 //        封装查询结果
         List<ArticleListVo> articleListVos = BeanCopyUtils.copyBeanList(page.getRecords(), ArticleListVo.class);
-
         PageVo pageVo=new PageVo(articleListVos,page.getTotal());
         return ResponseResult.okResult(pageVo);
     }
 
+    /**
+     * 根据id查询文章详细内容
+     * @param id
+     * @return
+     */
     @Override
     public ResponseResult getArticleDetail(Long id) {
-            //根据id查询相应文章内容
+        //根据id查询相应文章内容
         Article article = getById(id);
-
         //从redis中获取viewCount
         Integer viewCount = redisCache.getCacheMapValue(SystemConstants.REDIS_VIEW_KEY, id.toString());
         article.setViewCount(Long.valueOf(viewCount));
-
-            //VO转换
+        //VO转换
         ArticleDetailVo detailVO = BeanCopyUtils.copyBean(article, ArticleDetailVo.class);
-            //根据 *分类id 查询 *分类名
+        //根据 *分类id 查询 *分类名
         Category category = categoryService.getById(detailVO.getCategoryID());
-
+        //不为空时封装响应
         if(category!=null) detailVO.setCategoryName(category.getName());
-            //封装响应
         return ResponseResult.okResult(detailVO);
     }
 
@@ -133,6 +140,27 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         redisCache.IncrementCacheMapValue(SystemConstants.REDIS_VIEW_KEY,id.toString(),1);
         return ResponseResult.okResult();
 
+    }
+
+    /**
+     * 新增博客
+     * @return 200响应码
+     */
+    @Override
+    @Transactional
+    public ResponseResult addArticle(ArticleDto articleDto) {
+        //将articleDto映射至article并存入表
+        Article article = BeanCopyUtils.copyBean(articleDto, Article.class);
+        save(article);
+
+
+        List<ArticleTag> articleTags = articleDto.getTags().stream()
+                .map(tagId -> new ArticleTag(article.getId(), tagId))
+                .collect(Collectors.toList());
+
+        //添加 博客 和 标签 的关联
+        articleTagService.saveBatch(articleTags);
+        return ResponseResult.okResult();
     }
 
 }
