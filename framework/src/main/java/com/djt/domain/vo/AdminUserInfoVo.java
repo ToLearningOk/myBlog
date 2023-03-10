@@ -15,13 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class AdminUserInfoVo {
-    private UserInfoVo userInfoVo;
+    private UserInfoVo user;
     private List<String> permissions;
     private List<String> roles;
 
 
     public AdminUserInfoVo(List<String> perms, List<String> roles, UserInfoVo userInfoVo) {
-        this.userInfoVo = userInfoVo;
+        this.user = userInfoVo;
         this.permissions = perms;
         this.roles = roles;
     }

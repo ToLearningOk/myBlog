@@ -2,9 +2,10 @@ package com.djt.controller;
 
 import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.LoginUser;
-import com.djt.domain.entity.Role;
+import com.djt.domain.entity.Menu;
 import com.djt.domain.entity.User;
 import com.djt.domain.vo.AdminUserInfoVo;
+import com.djt.domain.vo.RoutsVo;
 import com.djt.domain.vo.UserInfoVo;
 import com.djt.enums.AppHttpCodeEnum;
 import com.djt.exception.SystemException;
@@ -14,6 +15,8 @@ import com.djt.service.RoleService;
 import com.djt.utils.BeanCopyUtils;
 import com.djt.utils.SecurityUtils;
 import io.jsonwebtoken.lang.Strings;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +27,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
+@Slf4j
 public class LoginController {
     @Resource
     private MenuService menuService;
@@ -39,10 +43,9 @@ public class LoginController {
         return LoginService.login(user);
     }
 
-    @GetMapping("/getInfo")
+    @GetMapping("getInfo")
     public ResponseResult<AdminUserInfoVo> getInfo(){
         //1.获取当前登录的用户
-        SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = SecurityUtils.getLoginUser();
         //2.根据当前用户id查询权限信息
         List<String> perms = menuService.selectPermsByUserId(loginUser.getUser().getId());
@@ -54,5 +57,15 @@ public class LoginController {
         //封装返回
         AdminUserInfoVo adminUserInfo = new AdminUserInfoVo(perms,rolesKeyList,userInfoVo);
         return ResponseResult.okResult(adminUserInfo);
+    }
+    @GetMapping("/getRouters")
+    public ResponseResult<RoutsVo> getRouters(){
+
+        //获取用户信息
+        Long userId = SecurityUtils.getUserId();
+        //查询menu,结果是tree的形式
+        List<Menu> menus = menuService.selectMenuTreeByUserId(userId);
+        //封装数据返回
+        return ResponseResult.okResult(new RoutsVo(menus));
     }
 }

@@ -15,6 +15,7 @@ com\djt\mapper\LinkMapper.class
 com\djt\service\impl\UserServiceImpl.class
 com\djt\utils\WebUtils.class
 com\djt\service\impl\UserDetailsServiceImpl.class
+com\djt\domain\entity\Role.class
 com\djt\domain\vo\UserInfoVo.class
 com\djt\utils\BeanCopyUtils.class
 com\djt\service\impl\ArticleServiceImpl.class
@@ -25,6 +26,7 @@ com\djt\mapper\CommentMapper.class
 com\djt\config\MybatisPlusConfig.class
 com\djt\service\impl\CategoryServiceImpl.class
 com\djt\config\FastJsonRedisSerializer.class
+com\djt\service\impl\RoleServiceImpl.class
 com\djt\service\CommentService.class
 com\djt\domain\vo\ArticleDetailVo.class
 com\djt\service\impl\TagServiceImpl.class
@@ -34,6 +36,7 @@ com\djt\domain\entity\Comment.class
 com\djt\constants\SystemConstants.class
 com\djt\domain\vo\CommentVo.class
 com\djt\domain\vo\HotArticleVo.class
+com\djt\domain\vo\RoutsVo.class
 com\djt\service\ArticleService.class
 com\djt\service\impl\CommentServiceImpl.class
 com\djt\service\CategoryService.class
@@ -42,12 +45,15 @@ com\djt\handler\security\AccessDeniedHandlerImpl.class
 com\djt\config\RedisConfig.class
 com\djt\domain\vo\PageVo.class
 com\djt\service\impl\LinkServiceImpl.class
+com\djt\mapper\RoleMapper.class
 com\djt\handler\mybatisplus\MyMetaObjectHandler.class
 com\djt\service\impl\MenuServiceImpl.class
 com\djt\domain\vo\ArticleListVo.class
 com\djt\service\MenuService.class
 com\djt\service\UploadService.class
+com\djt\service\RoleService.class
 com\djt\domain\vo\LinkVo.class
+com\djt\domain\vo\AdminUserInfoVo.class
 com\djt\service\TagService.class
 com\djt\utils\JwtUtil.class
 com\djt\service\UserService.class

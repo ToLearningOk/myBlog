@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="0" failures="0" name="com.djt.OSSTest" time="0" errors="0" skipped="0">
+<testsuite tests="1" failures="1" name="com.djt.OSSTest" time="0.227" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2022.2.2"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -63,4 +63,28 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
+  <testcase classname="com.djt.OSSTest" name="com.djt.OSSTest.testLambdaWrapper" time="0.227">
+    <failure message="can not find lambda cache for this entity [com.djt.domain.entity.Article]" type="com.baomidou.mybatisplus.core.exceptions.MybatisPlusException">com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: can not find lambda cache for this entity [com.djt.domain.entity.Article]
+	at com.baomidou.mybatisplus.core.toolkit.ExceptionUtils.mpe(ExceptionUtils.java:49)
+	at com.baomidou.mybatisplus.core.toolkit.Assert.isTrue(Assert.java:38)
+	at com.baomidou.mybatisplus.core.toolkit.Assert.notNull(Assert.java:72)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.tryInitCache(AbstractLambdaWrapper.java:94)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.getColumnCache(AbstractLambdaWrapper.java:83)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.columnToString(AbstractLambdaWrapper.java:67)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.lambda$columnsToString$0(AbstractLambdaWrapper.java:58)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:708)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:499)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.columnsToString(AbstractLambdaWrapper.java:58)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.columnsToString(AbstractLambdaWrapper.java:54)
+	at com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper.select(LambdaQueryWrapper.java:84)
+	at com.djt.OSSTest.testLambdaWrapper(OSSTest.java:88)
+</failure>
+    <system-out>12:09:04.211 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using &apos;class org.apache.ibatis.logging.slf4j.Slf4jImpl&apos; adapter.
+</system-out>
+  </testcase>
 </testsuite>

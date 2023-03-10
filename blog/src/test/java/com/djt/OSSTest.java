@@ -1,6 +1,7 @@
 package com.djt;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.djt.domain.entity.Article;
 import com.djt.mapper.ArticleMapper;
 import com.google.gson.Gson;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import javax.annotation.Resource;
@@ -100,5 +103,12 @@ public class OSSTest {
 
     public void setBucket(String bucket) {
         this.bucket = bucket;
+    }
+
+    @Resource
+    PasswordEncoder passwordEncoder;
+    public void password(){
+//        passwordEncoder.
+//        $2a$10$ydv3rLkteFnRx9xelQ7elOiVhFvXOooA98xCqk/omh7G94R.K/E3O
     }
 }

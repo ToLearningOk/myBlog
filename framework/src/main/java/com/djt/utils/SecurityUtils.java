@@ -21,10 +21,10 @@ public class SecurityUtils
     public static Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
-
+    //判断当前登录的用户是否是管理员
     public static Boolean isAdmin(){
         Long id = getLoginUser().getUser().getId();
-        return id != null && 1L == id;
+        return id != null && id.equals(1L);
     }
 
     public static Long getUserId() {

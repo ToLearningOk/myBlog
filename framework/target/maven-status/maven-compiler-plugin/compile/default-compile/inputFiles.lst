@@ -1,4 +1,6 @@
+C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\vo\RoutsVo.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\aspect\LogAspect.java
+C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\RoleService.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\vo\CategoryVo.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\vo\CommentVo.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\impl\CommentServiceImpl.java
@@ -16,9 +18,11 @@ C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domai
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\utils\JwtUtil.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\entity\Article.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\config\MybatisPlusConfig.java
+C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\vo\AdminUserInfoVo.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\mapper\ArticleMapper.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\UploadService.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\utils\WebUtils.java
+C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\entity\Role.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\impl\UserDetailsServiceImpl.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\vo\ArticleListVo.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\handler\exception\GlobalExceptionHandler.java
@@ -29,6 +33,7 @@ C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\confi
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\CommentService.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\impl\MenuServiceImpl.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\handler\mybatisplus\MyMetaObjectHandler.java
+C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\mapper\RoleMapper.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\ArticleService.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\utils\PathUtils.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\impl\ArticleServiceImpl.java
@@ -39,6 +44,7 @@ C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\mappe
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\impl\CategoryServiceImpl.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\LinkService.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\mapper\CategoryMapper.java
+C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\impl\RoleServiceImpl.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\constants\SystemConstants.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\utils\RedisCache.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\annotation\SystemLog.java

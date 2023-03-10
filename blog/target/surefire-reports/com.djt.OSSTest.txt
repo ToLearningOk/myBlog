@@ -1,4 +1,25 @@
 -------------------------------------------------------------------------------
 Test set: com.djt.OSSTest
 -------------------------------------------------------------------------------
-Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.227 sec <<< FAILURE!
+com.djt.OSSTest.testLambdaWrapper()  Time elapsed: 0.227 sec  <<< FAILURE!
+com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: can not find lambda cache for this entity [com.djt.domain.entity.Article]
+	at com.baomidou.mybatisplus.core.toolkit.ExceptionUtils.mpe(ExceptionUtils.java:49)
+	at com.baomidou.mybatisplus.core.toolkit.Assert.isTrue(Assert.java:38)
+	at com.baomidou.mybatisplus.core.toolkit.Assert.notNull(Assert.java:72)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.tryInitCache(AbstractLambdaWrapper.java:94)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.getColumnCache(AbstractLambdaWrapper.java:83)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.columnToString(AbstractLambdaWrapper.java:67)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.lambda$columnsToString$0(AbstractLambdaWrapper.java:58)
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193)
+	at java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948)
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:481)
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:471)
+	at java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:708)
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:499)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.columnsToString(AbstractLambdaWrapper.java:58)
+	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.columnsToString(AbstractLambdaWrapper.java:54)
+	at com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper.select(LambdaQueryWrapper.java:84)
+	at com.djt.OSSTest.testLambdaWrapper(OSSTest.java:88)
+
