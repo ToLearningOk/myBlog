@@ -30,7 +30,6 @@ public class OssUploadServiceImpl implements UploadService {
     @Override
     public ResponseResult uploading(MultipartFile img) {
         //TODO 判断文件类型或者文件大小
-
         //获取原始文件名
         String filename = img.getOriginalFilename();
         //对原始文件名进行判断，是否为图片
@@ -45,8 +44,29 @@ public class OssUploadServiceImpl implements UploadService {
     }
 
     /**
+     * 在写博客界面中，上传图片，
+     * @param img
+     * @return
+     */
+    @Override
+    public ResponseResult uploadImg(MultipartFile img) {
+        //获取原始文件名
+        String filename = img.getOriginalFilename();
+        //对原始文件名进行判断，是否为图片
+        if(!filename.endsWith(".png")&&!filename.endsWith(".jpg")){
+            throw new SystemException(AppHttpCodeEnum.CONTENT_TYPE_ERROR);
+        }
+        //调整图片文件名
+        String filePath = PathUtils.generateFilePath(filename);
+        String oss= qiNiuYunOSS(img,filePath);
+        return ResponseResult.okResult(oss);
+    }
+
+
+    /**
      * 上传文件，返回上传图片文件的外链
-     * @param imgFIle
+     * @param imgFIle 图片文件
+     * @param filePath 文件路径
      * @return 文件外链
      */
     private String qiNiuYunOSS(MultipartFile imgFIle,String filePath){

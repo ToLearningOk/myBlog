@@ -18,6 +18,8 @@ import com.djt.utils.BeanCopyUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
+
 /**
  * 标签(Tag)表服务实现类
  *
@@ -78,10 +80,26 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements TagSe
         return ResponseResult.okResult(tag);
     }
 
+    /**
+     * 更新标签信息
+     * @param tagVo
+     * @return
+     */
     @Override
     public ResponseResult UpdateTag(TagVo tagVo) {
         Tag tag = BeanCopyUtils.copyBean(tagVo, Tag.class);
         getBaseMapper().updateById(tag);
         return ResponseResult.okResult();
+    }
+
+    /**
+     * 查询所有的文章标签
+     * @return
+     */
+    @Override
+    public ResponseResult getAllTag() {
+        List<Tag> tags = list();
+        List<TagVo> tagVo = BeanCopyUtils.copyBeanList(tags, TagVo.class);
+        return ResponseResult.okResult(tagVo);
     }
 }

@@ -1,3 +1,7 @@
+oss:
+  accessKey: -rDi3tqnE04RhMHY0SwLUJytMmK3pytx4iWD4DEL
+  secretKey: _lnRIOR-YPkVioXEBIFebWJGrt-gMflEPzNMPEDZ
+  bucket: djt-blog
 server:
   port: 8989
 spring:

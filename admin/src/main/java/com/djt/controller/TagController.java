@@ -35,4 +35,8 @@ public class TagController {
     public ResponseResult UpdateTag(TagVo tagVo){
         return tagService.UpdateTag(tagVo);
     }
+    @GetMapping("/listAllTag")
+    public ResponseResult getAllTag(){
+        return tagService.getAllTag();
+    }
 }

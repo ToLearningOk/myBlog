@@ -40,7 +40,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         List<Article> articles = articleService.list(articleWrapper);
         // 2.获取文章的分类id，并去重
         Set<Long> categoryIds = articles.stream()
-                .map(article -> article.getCategoryId())  //获取每个元素的CategoryId，
+                .map(Article::getCategoryId)  //获取每个元素的CategoryId，
                 .collect(Collectors.toSet());//存入set实现去重
         // 3.查询分类表，找到id对应文章种类
         List<Category> categories = listByIds(categoryIds);
@@ -52,5 +52,16 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         List<CategoryVo> categoryVos = BeanCopyUtils.copyBeanList(categoryList, CategoryVo.class);
 
         return ResponseResult.okResult(categoryVos);
+    }
+
+    /**
+     * 查询所有的 文章分类
+     * @return
+     */
+    @Override
+    public ResponseResult listAllCategory() {
+        List<Category> list = list();
+        List<CategoryVo> CategoryVos = BeanCopyUtils.copyBeanList(list, CategoryVo.class);
+        return ResponseResult.okResult(CategoryVos);
     }
 }
