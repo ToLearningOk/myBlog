@@ -37,5 +37,7 @@ public class SystemConstants
     public static final String MENU_TYPE_CATALOG = "M";
     public static final String MENU_STATUS_NORMAL = "0";
     public static final String MENU_STATUS_DISABLE = "1";
+    //标签删除状态 0代表未删除，1代表删除
+    public static final String TAG_DEL_FLAG_DEL = "1";
 
 }

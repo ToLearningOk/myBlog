@@ -28,7 +28,7 @@ public class CommonController {
         Comment comment = BeanCopyUtils.copyBean(addCommentDto, Comment.class);
         return commentService.addComment(comment);
     }
-    @GetMapping("/link/CommentList")
+    @GetMapping("/linkCommentList")
     public ResponseResult getLinkCommentList(Integer pageNum,Integer pageSize){
         return commentService.getCommentList(SystemConstants.LINK_COMMENT,null,pageNum,pageSize);
     }

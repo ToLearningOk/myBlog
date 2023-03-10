@@ -5,6 +5,7 @@ import com.djt.domain.ResponseResult;
 import com.djt.domain.dto.TagListDto;
 import com.djt.domain.entity.Tag;
 import com.djt.domain.vo.PageVo;
+import com.djt.domain.vo.TagVo;
 
 
 /**
@@ -17,4 +18,12 @@ public interface TagService extends IService<Tag> {
 
 
     ResponseResult<PageVo> pagTagService(Integer pageNum, Integer pageSize, TagListDto tagListDto);
+
+    ResponseResult addTag(TagListDto addTag);
+
+    ResponseResult deleteTag(String id);
+
+    ResponseResult getTag(String id);
+
+    ResponseResult UpdateTag(TagVo tagVo);
 }
