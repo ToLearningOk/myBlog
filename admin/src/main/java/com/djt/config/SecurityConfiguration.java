@@ -38,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/logout").authenticated()
 //                .antMatchers("/user/userInfo").authenticated()
 //                .antMatchers("/upload").authenticated()
-                // 其他放行
+                // 其他都需要认证
                 .anyRequest().authenticated();
 
         http.logout().disable();

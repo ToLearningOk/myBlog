@@ -30,6 +30,7 @@ C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\mappe
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\mapper\TagMapper.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\MenuService.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\config\WebConfig.java
+C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\dto\AddCommentDto.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\CommentService.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\impl\MenuServiceImpl.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\handler\mybatisplus\MyMetaObjectHandler.java
@@ -38,6 +39,7 @@ C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\servi
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\utils\PathUtils.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\service\impl\ArticleServiceImpl.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\vo\UserInfoVo.java
+C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\dto\TagListDto.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\domain\vo\BlogUserLoginVo.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\utils\BeanCopyUtils.java
 C:\Users\56854\Desktop\实战项目\MyBlog\framework\src\main\java\com\djt\mapper\UserMapper.java

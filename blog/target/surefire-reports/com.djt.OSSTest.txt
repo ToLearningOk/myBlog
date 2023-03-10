@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.djt.OSSTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.227 sec <<< FAILURE!
-com.djt.OSSTest.testLambdaWrapper()  Time elapsed: 0.227 sec  <<< FAILURE!
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.215 sec <<< FAILURE!
+com.djt.OSSTest.testLambdaWrapper()  Time elapsed: 0.213 sec  <<< FAILURE!
 com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: can not find lambda cache for this entity [com.djt.domain.entity.Article]
 	at com.baomidou.mybatisplus.core.toolkit.ExceptionUtils.mpe(ExceptionUtils.java:49)
 	at com.baomidou.mybatisplus.core.toolkit.Assert.isTrue(Assert.java:38)
@@ -21,5 +21,5 @@ com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: can not find lamb
 	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.columnsToString(AbstractLambdaWrapper.java:58)
 	at com.baomidou.mybatisplus.core.conditions.AbstractLambdaWrapper.columnsToString(AbstractLambdaWrapper.java:54)
 	at com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper.select(LambdaQueryWrapper.java:84)
-	at com.djt.OSSTest.testLambdaWrapper(OSSTest.java:88)
+	at com.djt.OSSTest.testLambdaWrapper(OSSTest.java:90)
 

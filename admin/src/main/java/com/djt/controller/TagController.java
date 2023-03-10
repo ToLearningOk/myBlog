@@ -1,10 +1,9 @@
 package com.djt.controller;
 
 import com.djt.domain.ResponseResult;
-import com.djt.enums.AppHttpCodeEnum;
-import com.djt.exception.SystemException;
+import com.djt.domain.dto.TagListDto;
+import com.djt.domain.vo.PageVo;
 import com.djt.service.TagService;
-import io.jsonwebtoken.lang.Strings;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,9 +16,9 @@ public class TagController {
     @Resource
     TagService tagService;
     @GetMapping("/list")
-    public ResponseResult list(){
+    public ResponseResult<PageVo> list(Integer pageNum, Integer pageSize, TagListDto tagListDto ){
         System.out.println("返回数据");
-        return ResponseResult.okResult(tagService.list());
+        return tagService.pagTagService(pageNum,pageSize,tagListDto);
     }
 
 }

@@ -68,4 +68,10 @@ public class LoginController {
         //封装数据返回
         return ResponseResult.okResult(new RoutsVo(menus));
     }
+    @PostMapping("/user/logout")
+    public ResponseResult logout(){
+        //获取当前登录的用户id
+
+        return LoginService.logout();
+    }
 }

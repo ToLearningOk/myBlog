@@ -2,7 +2,9 @@ package com.djt.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.djt.domain.ResponseResult;
+import com.djt.domain.dto.TagListDto;
 import com.djt.domain.entity.Tag;
+import com.djt.domain.vo.PageVo;
 
 
 /**
@@ -14,5 +16,5 @@ import com.djt.domain.entity.Tag;
 public interface TagService extends IService<Tag> {
 
 
-
+    ResponseResult<PageVo> pagTagService(Integer pageNum, Integer pageSize, TagListDto tagListDto);
 }
