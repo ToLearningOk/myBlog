@@ -2,22 +2,32 @@ package com.djt.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.User;
+import com.djt.domain.entity.UserRole;
+import com.djt.domain.vo.PageVo;
 import com.djt.domain.vo.UserInfoVo;
+import com.djt.domain.vo.UserVo;
 import com.djt.enums.AppHttpCodeEnum;
 import com.djt.exception.SystemException;
 import com.djt.mapper.UserMapper;
+import com.djt.service.UserRoleService;
 import com.djt.service.UserService;
 import com.djt.utils.BeanCopyUtils;
 import com.djt.utils.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 用户表(User)表服务实现类
@@ -81,6 +91,71 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     /**
+     *  查询用户列表
+     * @param user
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public ResponseResult selectUserPage(User user, Integer pageNum, Integer pageSize) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper();
+        //根据用户名模糊、状态、手机号查询
+        queryWrapper.like(StringUtils.hasText(user.getUserName()),User::getUserName,user.getUserName());
+        queryWrapper.eq(StringUtils.hasText(user.getPhonenumber()),User::getPhonenumber,user.getPhonenumber());
+        queryWrapper.eq(StringUtils.hasText(user.getStatus()),User::getStatus,user.getStatus());
+
+        Page<User> page = new Page();
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+        page(page,queryWrapper);
+
+        //Vo转换
+        List<User> users = page.getRecords();
+        List<UserVo> userVoList = users.stream()
+                .map(u -> BeanCopyUtils.copyBean(u, UserVo.class))
+                .collect(Collectors.toList());
+        //分页显示
+        PageVo pageVo = new PageVo();
+        pageVo.setTotal(page.getTotal());
+        pageVo.setRows(userVoList);
+        return ResponseResult.okResult(pageVo);
+    }
+
+    /**
+     * 下面3行均为判断传入值是否重复
+     * @param userName
+     * @return
+     */
+    @Override
+    public boolean checkUserNameUnique(String userName) {
+        return count(Wrappers.<User>lambdaQuery().eq(User::getUserName,userName))==0;
+    }
+
+    @Override
+    public boolean checkPhoneUnique(User user) {
+        return count(Wrappers.<User>lambdaQuery().eq(User::getPhonenumber,user.getPhonenumber()))==0;
+    }
+
+    @Override
+    public boolean checkEmailUnique(User user) {
+        return count(Wrappers.<User>lambdaQuery().eq(User::getEmail,user.getEmail()))==0;
+    }
+
+    @Override
+    public ResponseResult addUser(User user) {
+        //密码加密处理
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        save(user);
+
+        if(user.getRoleIds()!=null&&user.getRoleIds().length>0){
+            insertUserRole(user);
+        }
+        return ResponseResult.okResult();
+    }
+
+
+    /**
      * 查询数据库中用户名是否存在，存在返回true
      * @param userName
      * @return boolean
@@ -101,5 +176,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         queryWrapper.eq(User::getNickName,nickName);
         //查询数据库中用户名相同的条数
         return count(queryWrapper)>0;
+    }
+    @Resource
+    private UserRoleService userRoleService;
+    private void insertUserRole(User user) {
+        List<UserRole> sysUserRoles = Arrays.stream(user.getRoleIds())
+                .map(roleId -> new UserRole(user.getId(), roleId)).collect(Collectors.toList());
+        userRoleService.saveBatch(sysUserRoles);
     }
 }

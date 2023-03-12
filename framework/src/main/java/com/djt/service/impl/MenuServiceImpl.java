@@ -83,7 +83,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     /**
-     * 查询可使用菜单
+     * 查询所有的可使用菜单
      * @param menu
      * @return
      */
@@ -112,7 +112,15 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return !Objects.isNull(getOne(queryWrapper));
     }
 
-
+    /**
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public List<Long> selectMenuListByRoleId(Long roleId) {
+        return getBaseMapper().selectMenuListByRoleId(roleId);
+    }
 
 
 //    ——————————————————————————分割线，下方为实现内部功能调用的方法

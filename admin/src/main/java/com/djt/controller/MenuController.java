@@ -2,8 +2,11 @@ package com.djt.controller;
 
 import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.Menu;
+import com.djt.domain.vo.MenuTreeVo;
+import com.djt.domain.vo.RoleMenuTreeSelectVo;
 import com.djt.enums.AppHttpCodeEnum;
 import com.djt.service.MenuService;
+import com.djt.utils.SystemConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,8 +57,8 @@ public class MenuController {
         return ResponseResult.okResult();
     }
     /**
-     * 删除菜单
-     * @param menuId
+     * 根据菜单id删除菜单
+     * @param menuId 菜单id
      * @return
      */
     @DeleteMapping("{menuId}")
@@ -69,11 +72,34 @@ public class MenuController {
         menuService.removeById(menuId);
         return ResponseResult.okResult();
     }
+
+    /**
+     * 获取菜单下拉树列表
+     */
     @GetMapping("/treeselect")
     public ResponseResult treeSelect(){
-        List<Menu> menuList =  menuService.selectMenuList(menu);
-
+        //复用之前的selectMenuList方法。方法需要参数，参数可以用来进行条件查询，而这个方法不需要条件，所以直接new Menu()传入
+        List<Menu> menus = menuService.selectMenuList(new Menu());
+        //调用SystemConverter的方法，返回树类型结构
+        List<MenuTreeVo> options =  SystemConverter.buildMenuSelectTree(menus);
+        return ResponseResult.okResult(options);
     }
+
+    /**
+     * 加载对应角色菜单列表树
+     */
+    @GetMapping("/treeselect/{id}")
+    public ResponseResult treeSelect(@PathVariable("id") Long roleId){
+        List<Menu> menus = menuService.selectMenuList(new Menu());
+        //查询当前角色的可用菜单
+        List<Long> checkedKeys = menuService.selectMenuListByRoleId(roleId);
+        //将菜单转化为树结构
+        List<MenuTreeVo> menuTreeVos = SystemConverter.buildMenuSelectTree(menus);
+        //Vo转换
+        RoleMenuTreeSelectVo vo = new RoleMenuTreeSelectVo(checkedKeys,menuTreeVos);
+        return ResponseResult.okResult(vo);
+    }
+
 
 
 

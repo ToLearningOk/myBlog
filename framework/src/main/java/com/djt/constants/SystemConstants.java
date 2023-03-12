@@ -66,4 +66,6 @@ public class SystemConstants
      */
     public static final String NORMAL_USER = "1";
 
+    /** 正常状态 */
+    public static final String NORMAL = "0";
 }

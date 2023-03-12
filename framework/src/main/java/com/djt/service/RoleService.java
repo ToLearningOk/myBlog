@@ -26,4 +26,8 @@ public interface RoleService extends IService<Role> {
     ResponseResult selectRolePage(Role role, Integer pageNum, Integer pageSize);
 
     void changeStatus(ChangeRoleStatusDto roleStatusDto);
+
+    List<Role> selectRoleAll();
+
+    void updateRole(Role role);
 }

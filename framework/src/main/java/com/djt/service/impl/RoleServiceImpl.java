@@ -2,19 +2,26 @@ package com.djt.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.djt.constants.SystemConstants;
 import com.djt.domain.ResponseResult;
 import com.djt.domain.dto.ChangeRoleStatusDto;
 import com.djt.domain.entity.Role;
+import com.djt.domain.entity.RoleMenu;
 import com.djt.domain.vo.PageVo;
 import com.djt.mapper.RoleMapper;
+import com.djt.service.RoleMenuService;
 import com.djt.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 角色信息表(Role)表服务实现类
@@ -24,7 +31,8 @@ import java.util.List;
  */
 @Service("sysRoleService")
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
-
+    @Autowired
+    private RoleMenuService roleMenuService;
 
 
     @Override
@@ -83,4 +91,32 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         updateWrapper.set(Role::getStatus,roleStatusDto.getStatus());
         update(updateWrapper);
     }
+
+    @Override
+    public void updateRole(Role role) {
+        updateById(role);
+        roleMenuService.deleteRoleMenuByRoleId(role.getId());
+        insertRoleMenu(role);
+    }
+
+    /**
+     * 查询所有的角色信息
+     * @return
+     */
+    @Override
+    public List<Role> selectRoleAll() {
+
+        return list(Wrappers.<Role>lambdaQuery().eq(Role::getStatus, SystemConstants.NORMAL));
+    }
+
+
+
+
+    private void insertRoleMenu(Role role) {
+        List<RoleMenu> roleMenuList = Arrays.stream(role.getMenuIds())
+                .map(memuId -> new RoleMenu(role.getId(), memuId))
+                .collect(Collectors.toList());
+        roleMenuService.saveBatch(roleMenuList);
+    }
+
 }

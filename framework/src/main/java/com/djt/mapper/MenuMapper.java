@@ -23,5 +23,8 @@ public interface MenuMapper extends BaseMapper<Menu> {
     List<Menu> selectAllRouterMenu();
 
     List<Menu> selectRouteTreeByUserId(Long userId);
+
+    //查询角色的可用菜单id
+    List<Long> selectMenuListByRoleId(Long roleId);
 }
 
