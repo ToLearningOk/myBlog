@@ -58,7 +58,7 @@ public class RoleController {
     }
     //删除角色
     @DeleteMapping("{id}")
-    public ResponseResult removeRole(@PathVariable Long id){
+    public ResponseResult removeRole(@PathVariable(name = "id") Long id){
         roleService.removeById(id);
         return ResponseResult.okResult();
     }

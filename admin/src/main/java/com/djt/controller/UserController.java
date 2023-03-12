@@ -22,6 +22,7 @@ public class UserController {
     public ResponseResult listUser(User user, Integer pageNum, Integer pageSize){
         return userService.selectUserPage(user,pageNum,pageSize);
     }
+
     @PostMapping
     public ResponseResult addUser(@RequestBody  User user){
         //判断用户信息是否重复

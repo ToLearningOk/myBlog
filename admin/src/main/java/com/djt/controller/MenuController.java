@@ -3,9 +3,11 @@ package com.djt.controller;
 import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.Menu;
 import com.djt.domain.vo.MenuTreeVo;
+import com.djt.domain.vo.MenuVo;
 import com.djt.domain.vo.RoleMenuTreeSelectVo;
 import com.djt.enums.AppHttpCodeEnum;
 import com.djt.service.MenuService;
+import com.djt.utils.BeanCopyUtils;
 import com.djt.utils.SystemConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +26,9 @@ public class MenuController {
      */
     @GetMapping("/list")
     public ResponseResult MenuList(Menu menu){
-
         List<Menu> menuList =  menuService.selectMenuList(menu);
-        return ResponseResult.okResult(menuList);
+        List<MenuVo> menuVos = BeanCopyUtils.copyBeanList(menuList, MenuVo.class);
+        return ResponseResult.okResult(menuVos);
     }
     /**
      * 添加菜单
@@ -47,6 +49,11 @@ public class MenuController {
         return ResponseResult.okResult(menuService.getById(id));
     }
 
+    /**
+     * 修改菜单
+     * @param menu
+     * @return
+     */
     @PutMapping()
     public ResponseResult edit(@RequestBody Menu menu){
         if (menu.getId().equals(menu.getParentId())) {
@@ -88,7 +95,7 @@ public class MenuController {
     /**
      * 加载对应角色菜单列表树
      */
-    @GetMapping("/treeselect/{id}")
+    @GetMapping("/roleMenuTreeselect/{id}")
     public ResponseResult treeSelect(@PathVariable("id") Long roleId){
         List<Menu> menus = menuService.selectMenuList(new Menu());
         //查询当前角色的可用菜单
