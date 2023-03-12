@@ -13,11 +13,11 @@ import java.util.List;
  * @since 2023-03-09 15:21:22
  */
 public interface MenuMapper extends BaseMapper<Menu> {
-//    /***
-//     * 根据id查询该用户的权限信息
-//     * @param userId 用户id
-//     * @return List<String>
-//     */
+    /***
+     * 根据id查询该用户的权限信息
+     * @param userId 用户id
+     * @return List<String>
+     */
     List<String> getSelectPermsByID(Long userId);
 
     List<Menu> selectAllRouterMenu();

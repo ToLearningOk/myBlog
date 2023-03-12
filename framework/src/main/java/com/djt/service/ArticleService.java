@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.djt.domain.ResponseResult;
 import com.djt.domain.dto.ArticleDto;
 import com.djt.domain.entity.Article;
+import com.djt.domain.vo.PageVo;
 
 public interface ArticleService extends IService<Article> {
 
@@ -20,4 +21,6 @@ public interface ArticleService extends IService<Article> {
     ResponseResult updateViewCount(Long id);
 
     ResponseResult addArticle(ArticleDto article);
+
+    PageVo selectArticlePage(Article article, Integer pageNum, Integer pageSize);
 }

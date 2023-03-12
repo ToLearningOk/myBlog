@@ -5,6 +5,7 @@ import com.djt.domain.dto.TagListDto;
 import com.djt.domain.vo.PageVo;
 import com.djt.domain.vo.TagVo;
 import com.djt.service.TagService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -35,6 +36,8 @@ public class TagController {
     public ResponseResult UpdateTag(TagVo tagVo){
         return tagService.UpdateTag(tagVo);
     }
+
+
     @GetMapping("/listAllTag")
     public ResponseResult getAllTag(){
         return tagService.getAllTag();

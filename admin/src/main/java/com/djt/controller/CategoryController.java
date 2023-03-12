@@ -10,6 +10,7 @@ import com.djt.enums.AppHttpCodeEnum;
 import com.djt.service.CategoryService;
 import com.djt.utils.BeanCopyUtils;
 import com.djt.utils.WebUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ public class CategoryController {
         return categoryService.listAllCategory();
     }
     @GetMapping("/export")
+    @PreAuthorize("@ps.hasPermission('content:category:export')") //内容调用方法去判断当前用户是否具有权限
     public void  export(HttpServletResponse response){
         //成功的话直接导出一个Excel文件
         //设置需要下载文件的请求头
