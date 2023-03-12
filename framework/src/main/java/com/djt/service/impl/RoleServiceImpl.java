@@ -100,6 +100,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     /**
+     * 查询当前用户拥有的角色
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Long> selectRoleIdByUserId(Long id) {
+
+        return getBaseMapper().selectRoleIdByUserId(id);
+    }
+
+    /**
      * 查询所有的角色信息
      * @return
      */

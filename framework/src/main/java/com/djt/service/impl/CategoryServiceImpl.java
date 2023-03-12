@@ -3,19 +3,23 @@ package com.djt.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.djt.constants.SystemConstants;
 import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.Article;
 import com.djt.domain.entity.Category;
 import com.djt.domain.vo.CategoryVo;
+import com.djt.domain.vo.PageVo;
 import com.djt.mapper.CategoryMapper;
 import com.djt.utils.BeanCopyUtils;
 import org.springframework.stereotype.Service;
 import com.djt.service.CategoryService;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -63,5 +67,26 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         List<Category> list = list();
         List<CategoryVo> CategoryVos = BeanCopyUtils.copyBeanList(list, CategoryVo.class);
         return ResponseResult.okResult(CategoryVos);
+    }
+    //分页查询分类列表，模糊和状态查询。
+    @Override
+    public PageVo selectCategoryPage(Category category, Integer pageNum, Integer pageSize) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper();
+
+        queryWrapper.like(StringUtils.hasText(category.getName()),Category::getName, category.getName());
+        queryWrapper.eq(Objects.nonNull(category.getStatus()),Category::getStatus,category.getStatus());
+
+        Page<Category> page = new Page();
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+
+        //Vo转换
+        List<Category> categories = page.getRecords();
+
+        PageVo pageVo = new PageVo();
+        pageVo.setRows(categories);
+        pageVo.setTotal(page.getTotal());
+
+        return pageVo;
     }
 }

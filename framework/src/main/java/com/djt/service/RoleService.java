@@ -30,4 +30,6 @@ public interface RoleService extends IService<Role> {
     List<Role> selectRoleAll();
 
     void updateRole(Role role);
+
+    List<Long> selectRoleIdByUserId(Long id);
 }

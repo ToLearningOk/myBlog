@@ -6,6 +6,7 @@ import com.djt.domain.ResponseResult;
 import com.djt.domain.entity.Category;
 import com.djt.domain.vo.CategoryVo;
 import com.djt.domain.vo.ExcelCategoryVo;
+import com.djt.domain.vo.PageVo;
 import com.djt.enums.AppHttpCodeEnum;
 import com.djt.service.CategoryService;
 import com.djt.utils.BeanCopyUtils;
@@ -28,11 +29,22 @@ import static org.assertj.core.util.Lists.list;
 public class CategoryController {
     @Resource
     CategoryService categoryService;
+
+
     @GetMapping("/listAllCategory")
     public ResponseResult getAllCategoryList(){
         //查询所有的分类
         return categoryService.listAllCategory();
     }
+    // 模糊分页查询分类列表
+    @GetMapping("/list")
+    public ResponseResult CategoryList(Category category, Integer pageNum, Integer pageSize){
+        PageVo pageVo = categoryService.selectCategoryPage(category,pageNum,pageSize);
+
+    return ResponseResult.okResult(pageVo);
+    }
+
+
     @GetMapping("/export")
     @PreAuthorize("@ps.hasPermission('content:category:export')") //内容调用方法去判断当前用户是否具有权限
     public void  export(HttpServletResponse response){
@@ -54,4 +66,6 @@ public class CategoryController {
 
         }
     }
+
+
 }
