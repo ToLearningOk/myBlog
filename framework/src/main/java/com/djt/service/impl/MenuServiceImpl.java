@@ -1,15 +1,21 @@
 package com.djt.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.djt.constants.SystemConstants;
+import com.djt.domain.entity.Article;
 import com.djt.domain.entity.Menu;
 import com.djt.mapper.MenuMapper;
 import com.djt.service.MenuService;
 import com.djt.utils.SecurityUtils;
+
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.djt.constants.SystemConstants.*;
@@ -76,6 +82,40 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         return menuTree;
     }
 
+    /**
+     * 查询可使用菜单
+     * @param menu
+     * @return
+     */
+    @Override
+    public List<Menu> selectMenuList(Menu menu) {
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        //模糊查询并排除已删除的菜单
+        queryWrapper.like(StringUtils.hasText(menu.getMenuName()),Menu::getMenuName,menu.getMenuName());
+        queryWrapper.eq(StringUtils.hasText(menu.getStatus()),Menu::getStatus,menu.getStatus());
+        //排序,根据父菜单id和orderNum
+        queryWrapper.orderByAsc(Menu::getParentId,Menu::getOrderNum);
+        List<Menu> menus = list(queryWrapper);
+        return menus;
+
+    }
+
+    /**
+     * 判断当前菜单是否存在子菜单
+     * @param menuId
+     * @return
+     */
+    @Override
+    public boolean hasChild(Long menuId) {
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Menu::getParentId,menuId);
+        return !Objects.isNull(getOne(queryWrapper));
+    }
+
+
+
+
+//    ——————————————————————————分割线，下方为实现内部功能调用的方法
     /**
      * 将传入的menus参数构建成tree结构
      * @param menus

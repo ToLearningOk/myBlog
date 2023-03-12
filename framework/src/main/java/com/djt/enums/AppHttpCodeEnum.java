@@ -20,7 +20,9 @@ public enum AppHttpCodeEnum {
     PASSWORD_NOT_NULL(511, "密码不能为空"),
     LOGIN_ERROR(505,"用户名或密码错误"),
     CONTENT_NOT_NULL(506,"评论内容不能为空" ),
+    MENU_NOT_REMOVE(508,"删除菜单不能有子菜单" ),
     CONTENT_TYPE_ERROR(507,"文件类型异常,上传文件只能为png或者jpg");
+
     int code;
     String msg;
 

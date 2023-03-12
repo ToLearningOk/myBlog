@@ -2,6 +2,7 @@ package com.djt.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.djt.constants.SystemConstants;
@@ -10,13 +11,12 @@ import com.djt.domain.dto.ArticleDto;
 import com.djt.domain.entity.Article;
 import com.djt.domain.entity.ArticleTag;
 import com.djt.domain.entity.Category;
-import com.djt.domain.vo.ArticleDetailVo;
-import com.djt.domain.vo.ArticleListVo;
-import com.djt.domain.vo.HotArticleVo;
-import com.djt.domain.vo.PageVo;
+import com.djt.domain.entity.Tag;
+import com.djt.domain.vo.*;
 import com.djt.mapper.ArticleMapper;
 import com.djt.service.ArticleService;
 import com.djt.service.ArticleTagService;
+import com.djt.service.TagService;
 import com.djt.utils.BeanCopyUtils;
 import com.djt.utils.RedisCache;
 import org.springframework.stereotype.Service;
@@ -42,6 +42,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     private CategoryServiceImpl categoryService;
     @Resource
     private ArticleTagService articleTagService;
+    @Resource
+    private TagService tagService;
     /**
      * 获取热门文章列表，响应体内含热门文章列表
      * */
@@ -194,6 +196,39 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         pageVo.setTotal(page.getTotal());
         pageVo.setRows(articles);
         return pageVo;
+    }
+
+    /**
+     * 更新文章时获取文章的信息
+     * @param id
+     * @return
+     */
+    @Override
+    public ArticleVo getInfo(Long id) {
+        Article article = getById(id);
+        //获取文章关联tags
+        LambdaQueryWrapper<ArticleTag> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.eq(ArticleTag::getArticleId,article.getId() );
+        List<ArticleTag> articleTags = articleTagService.list(queryWrapper);
+        List<Long> tagIdList = articleTags.stream()
+                .map(tag -> tag.getTagId())
+                .collect(Collectors.toList());
+        //Vo转换，将tags封装进属性
+        ArticleVo articleVo = BeanCopyUtils.copyBean(article, ArticleVo.class);
+        articleVo.setTags(tagIdList);
+        return articleVo;
+    }
+
+    /**
+     * 删除文章，将文章删除表示符标识为1，表示已删除
+     * @param id
+     */
+    @Override
+    public void removeById(Long id) {
+        LambdaUpdateWrapper<Article> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.eq(Article::getId,id);
+        updateWrapper.set(Article::getDelFlag,SystemConstants.ARTICLE_STATUS_DELETE);
+        update(updateWrapper);
     }
 
 }

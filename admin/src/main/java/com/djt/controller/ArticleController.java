@@ -38,5 +38,15 @@ public class ArticleController {
         ArticleVo article = articleService.getInfo(id);
         return ResponseResult.okResult(article);
     }
+    @DeleteMapping("{id}")
+    public ResponseResult delete(@PathVariable(value = "id") Long id){
+        //修改文章
+        articleService.removeById(id);
+        return ResponseResult.okResult();
+    }
+
+
+
+
 
 }

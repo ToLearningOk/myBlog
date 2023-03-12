@@ -11,6 +11,10 @@ public class SystemConstants
      */
     public static final int ARTICLE_STATUS_NORMAL = 0;
     /**
+     *  文章是删除状态
+     */
+    public static final int ARTICLE_STATUS_DELETE = 1;
+    /**
      *  分类是正常启用状态
      */
     public static final String CATEGORY_STATUS_NORMAL = "0";
@@ -39,7 +43,6 @@ public class SystemConstants
     /**
      * 存入redis中浏览量ViewCount的键
      */
-
     public static final String REDIS_VIEW_KEY="viewCount";
     public static final String ARTICLE_COMMENT = "0";
     public static final String LINK_COMMENT = "1";
@@ -48,6 +51,10 @@ public class SystemConstants
     public static final String MENU_TYPE_CATALOG = "M";
     public static final String MENU_STATUS_NORMAL = "0";
     public static final String MENU_STATUS_DISABLE = "1";
+    /**
+     *  菜单是删除状态
+     */
+    public static final int MENU_STATUS_DELETE = 1;
     //标签删除状态 0代表未删除，1代表删除
     public static final String TAG_DEL_FLAG_DEL = "1";
     /**

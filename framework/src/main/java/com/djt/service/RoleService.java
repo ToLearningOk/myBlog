@@ -1,6 +1,8 @@
 package com.djt.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.djt.domain.ResponseResult;
+import com.djt.domain.dto.ChangeRoleStatusDto;
 import com.djt.domain.entity.Role;
 
 import java.util.List;
@@ -20,4 +22,8 @@ public interface RoleService extends IService<Role> {
      * @return List
      */
     List<String> selectRoleByUserId(Long id);
+
+    ResponseResult selectRolePage(Role role, Integer pageNum, Integer pageSize);
+
+    void changeStatus(ChangeRoleStatusDto roleStatusDto);
 }
